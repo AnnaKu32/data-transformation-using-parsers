@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="client">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="firstName" type="xs:string"/>
+                <xs:element name="lastName" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="phone" type="xs:string"/>
+                <xs:element name="company" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="idClient" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="department">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="departmentName" type="xs:string"/>
+                <xs:element name="departmentDescription" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="idDepartment" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="employee">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="firstName" type="xs:string"/>
+                <xs:element name="lastName" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="phone" type="xs:string"/>
+                <xs:element name="jobTitle" type="xs:string"/>
+                <xs:element name="salary" type="xs:decimal"/>
+            </xs:sequence>
+            <xs:attribute name="idEmployee" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="project">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="projectName" type="xs:string"/>
+                <xs:element name="projectDescription" type="xs:string"/>
+                <xs:element name="startDate" type="xs:dateTime"/>
+                <xs:element name="dueDate" type="xs:dateTime"/>
+            </xs:sequence>
+            <xs:attribute name="idProject" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="task">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="taskName" type="xs:string"/>
+                <xs:element name="taskDescription" type="xs:string"/>
+                <xs:element name="priority" type="xs:string"/>
+                <xs:element name="status" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="idTask" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="clients">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="client"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="departments">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="department"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="employees">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="employee"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="projects">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="project"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="tasks">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="task"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="company">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="clients"/>
+                <xs:element ref="departments"/>
+                <xs:element ref="employees"/>
+                <xs:element ref="projects"/>
+                <xs:element ref="tasks"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

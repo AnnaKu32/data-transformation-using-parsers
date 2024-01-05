@@ -1,0 +1,43 @@
+<company>
+    <clients>
+        <client idClient="1">
+            <firstName>John</firstName>
+            <lastName>Smith</lastName>
+            <email>john.smith@email.com</email>
+            <phone>123-456-789</phone>
+            <company>ABC Corporation</company>
+        </client>
+    </clients>
+    <departments>
+        <department idDepartment="1">
+            <departmentName>IT</departmentName>
+            <departmentDescription>Responsible for maintaining and developing systems.</departmentDescription>
+        </department>
+    </departments>
+    <employees>
+        <employee idEmployee="1">
+            <firstName>Jane</firstName>
+            <lastName>Smith</lastName>
+            <email>jane.smith@email.com</email>
+            <phone>098-765-432</phone>
+            <jobTitle>Software Engineer</jobTitle>
+            <salary>60000</salary>
+        </employee>
+    </employees>
+    <projects>
+        <project idProject="1">
+            <projectName>Project X</projectName>
+            <projectDescription>Development of a new web application.</projectDescription>
+            <startDate>2023-01-01T12:12:00</startDate>
+            <dueDate>2023-06-30T12:12:00</dueDate>
+        </project>
+    </projects>
+    <tasks>
+        <task idTask="1">
+            <taskName>Develop user authentication system</taskName>
+            <taskDescription>Implement user registration, login, and logout functionalities.</taskDescription>
+            <priority>Medium</priority>
+            <status>In Progress</status>
+        </task>
+    </tasks>
+</company>
