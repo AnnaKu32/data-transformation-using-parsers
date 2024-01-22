@@ -1,9 +1,15 @@
 package com.example;
 
+import com.example.exceptions.DeserializationException;
+import com.example.exceptions.ParsingException;
+import com.example.exceptions.UnmarshallingException;
+import com.example.exceptions.ValidationException;
 import com.example.parsers.JAXBParser;
 import com.example.parsers.JSONParser;
 import com.example.parsers.SAXParser;
 import com.example.validators.XmlValidator;
+
+import static com.example.utils.LoggerUtil.LOGGER;
 
 public class Main {
     public static void main(String[] args){
@@ -16,22 +22,32 @@ public class Main {
         String xmlPathValidate = "company.xml";
 
         XmlValidator validator = new XmlValidator(xsdPathValidate, xmlPathValidate);
-        validator.validateXMLSchema();
+        try{
+            validator.validateXMLSchema();
+        } catch (ValidationException e){
+            LOGGER.error(e);
+        }
 
-        System.out.println("-------------------------------------------------");
-        System.out.println("SAX parser");
         SAXParser saxParser = new SAXParser(xmlPath);
-        saxParser.parseXmlWithHandler();
+        try{
+            saxParser.parseXmlWithHandler();
+        } catch (ParsingException e){
+            LOGGER.error(e);
+        }
 
-        System.out.println("-------------------------------------------------");
-        System.out.println("JAXB parser");
         JAXBParser jaxbParser = new JAXBParser(xmlPath);
-        jaxbParser.parseXML();
+        try{
+            jaxbParser.parseXML();
+        } catch (UnmarshallingException e){
+            LOGGER.error(e);
+        }
 
-        System.out.println("-------------------------------------------------");
-        System.out.println("JSON parser");
         JSONParser jsonParser = new JSONParser(jsonPath);
-        jsonParser.parseJSON();
+        try{
+            jsonParser.parseJSON();
+        } catch (DeserializationException e){
+            LOGGER.error(e);
+        }
 
     }
 }

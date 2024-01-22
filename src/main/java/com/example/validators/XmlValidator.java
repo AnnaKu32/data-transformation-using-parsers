@@ -1,5 +1,6 @@
 package com.example.validators;
 
+import com.example.exceptions.ValidationException;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -11,7 +12,7 @@ import javax.xml.validation.Validator;
 import java.io.IOException;
 import java.net.URL;
 
-import static com.example.utils.LoggerUtil.log;
+import static com.example.utils.LoggerUtil.LOGGER;
 
 public class XmlValidator {
 
@@ -23,14 +24,15 @@ public class XmlValidator {
         this.xmlPath = xmlPath;
     }
 
-    public void validateXMLSchema() {
+    public void validateXMLSchema() throws ValidationException {
         try {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
             URL xsdUrl = XmlValidator.class.getClassLoader().getResource(xsdPath);
             URL xmlUrl = XmlValidator.class.getClassLoader().getResource(xmlPath);
             if (xsdUrl == null || xmlUrl == null) {
-                throw new IllegalArgumentException("Url is null");
+                LOGGER.error("xsdUrl or xmlUrl is null");
+                throw new ValidationException("xsdUrl or xmlUrl is null");
             }
 
             Source xsdSource = new StreamSource(xsdUrl.openStream());
@@ -38,9 +40,10 @@ public class XmlValidator {
 
             Validator validator = schema.newValidator();
             validator.validate(new StreamSource(xmlUrl.openStream()));
-            log.info("XML document is valid against the schema");
+            LOGGER.info("XML document is valid against the schema");
         } catch (SAXException | IOException e) {
-            log.error("XML document is not valid against the schema", e);
+            LOGGER.error("XML document is not valid against the schema", e);
+            throw new ValidationException("XML document is not valid against the schema", e);
         }
     }
 }

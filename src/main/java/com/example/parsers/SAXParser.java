@@ -3,12 +3,14 @@ package com.example.parsers;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
-import com.example.utils.LoggerUtil;
+import com.example.exceptions.ParsingException;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.IOException;
+
+import static com.example.utils.LoggerUtil.LOGGER;
 
 public class SAXParser {
 
@@ -20,12 +22,13 @@ public class SAXParser {
         this.xmlPath = xmlPath;
     }
 
-    public void parseXmlWithHandler() {
+    public void parseXmlWithHandler() throws ParsingException {
         try {
             parser = factory.newSAXParser();
             parser.parse(xmlPath, handler);
         } catch (SAXException | ParserConfigurationException | IOException e) {
-            LoggerUtil.log.error("Error during XML parsing: " + e);
+            LOGGER.error("Error during XML parsing: ", e);
+            throw new ParsingException("Error during XML parsing", e);
         }
     }
 
@@ -48,31 +51,31 @@ public class SAXParser {
                 case "client":
                     inClient = true;
                     clientId = attributes.getValue("idClient");
-                    LoggerUtil.log.info("Client ID: " + clientId);
+                    LOGGER.info("Client ID: " + clientId);
                     break;
 
                 case "department":
                     inDepartment = true;
                     departmentId = attributes.getValue("idDepartment");
-                    LoggerUtil.log.info("Department ID: " + departmentId);
+                    LOGGER.info("Department ID: " + departmentId);
                     break;
 
                 case "employee":
                     inEmployee = true;
                     employeeId = attributes.getValue("idEmployee");
-                    LoggerUtil.log.info("Employee ID: " + employeeId);
+                    LOGGER.info("Employee ID: " + employeeId);
                     break;
 
                 case "project":
                     inProject = true;
                     projectId = attributes.getValue("idProject");
-                    LoggerUtil.log.info("Project ID: " + projectId);
+                    LOGGER.info("Project ID: " + projectId);
                     break;
 
                 case "task":
                     inTask = true;
                     taskId = attributes.getValue("idTask");
-                    LoggerUtil.log.info("Task ID: " + taskId);
+                    LOGGER.info("Task ID: " + taskId);
                     break;
             }
         }
@@ -83,15 +86,15 @@ public class SAXParser {
                 String text = new String(ch, start, length).trim();
                 if (!text.isEmpty()) {
                     if (inClient) {
-                        LoggerUtil.log.info("Client: " + text);
+                        LOGGER.info("Client: " + text);
                     } else if (inDepartment) {
-                        LoggerUtil.log.info("Department: " + text);
+                        LOGGER.info("Department: " + text);
                     } else if (inEmployee) {
-                        LoggerUtil.log.info("Employee: " + text);
+                        LOGGER.info("Employee: " + text);
                     } else if (inProject) {
-                        LoggerUtil.log.info("Project: " + text);
+                        LOGGER.info("Project: " + text);
                     } else if (inTask) {
-                        LoggerUtil.log.info("Task: " + text);
+                        LOGGER.info("Task: " + text);
                     }
                 }
             }
